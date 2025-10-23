@@ -1,0 +1,2 @@
+1 Tark 60 50 Sim
+1 Lan 40 30 Não
