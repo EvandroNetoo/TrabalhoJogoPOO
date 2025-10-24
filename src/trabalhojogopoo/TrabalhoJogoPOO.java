@@ -33,7 +33,5 @@ public class TrabalhoJogoPOO {
 
         System.err.println("\ne)");
         System.err.println("\nf)");
-
-        }
-
+    }
 }

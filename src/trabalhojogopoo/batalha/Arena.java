@@ -22,6 +22,8 @@ public class Arena {
     }
 
     public void iniciar() {
+        dadosGerais();
+        System.out.println("---------------------------------------------------");
         while (lados.values().stream().filter(lado -> lado.qtdVivos() > 0).count() > 1) {
             List<TipoLado> ordemAtaque = gerarOrdemTipoLados(), ordemDefesa = gerarOrdemTipoLados();
 
@@ -31,27 +33,46 @@ public class Arena {
                     continue;
                 }
 
-                for (TipoLado tipoLadoDefensor : ordemDefesa.stream().filter(TipoLado -> TipoLado != tipoLadoAtacante)
+                for (TipoLado tipoLadoDefensor : ordemDefesa.stream()
+                        .filter(tipoLado -> tipoLado != tipoLadoAtacante)
                         .toList()) {
                     Lado ladoDefensor = lados.get(tipoLadoDefensor);
 
-                    ladoAtacante.primeiro().atacar(ladoAtacante, ladoDefensor);
+                    Guerreiro guerreiroAtacante = ladoAtacante.primeiro();
+
+                    if (guerreiroAtacante.podeAtacar()) {
+                        guerreiroAtacante.atacar(
+                                ladoAtacante,
+                                ladoDefensor,
+                                tipoLadoAtacante == ordemAtaque.getFirst());
+                    }
+
                 }
 
             }
 
-            lados.values().forEach(lado -> lado.getGuerreiros().removeIf(guerreiro -> !guerreiro.estaVivo()));
+            aplicarRotinasAposRodada();
+
+            dadosGerais();
+            System.out.println("---------------------------------------------------");
         }
+    }
+
+    private void aplicarRotinasAposRodada() {
+        lados.values().forEach(lado -> {
+            lado.andarFila();
+            lado.aplicarEfeitos();
+            lado.removerTontura();
+            lado.removerMortos();
+        });
     }
 
     public void dadosGerais() {
         for (Map.Entry<TipoLado, Lado> entry : lados.entrySet()) {
             TipoLado tipoLado = entry.getKey();
             Lado lado = entry.getValue();
-            System.out.println("Lado: " + tipoLado.getVeboso());
-            for (Guerreiro guerreiro : lado.getGuerreiros()) {
-                System.out.println("\t" + guerreiro);
-            }
+            System.out.println("Lado " + tipoLado.getVeboso() + ":");
+            lado.printGuerreiros();
         }
     }
 

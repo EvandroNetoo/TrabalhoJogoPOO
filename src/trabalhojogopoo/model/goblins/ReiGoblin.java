@@ -1,5 +1,6 @@
 package trabalhojogopoo.model.goblins;
 
+import trabalhojogopoo.batalha.Lado;
 import trabalhojogopoo.model.Guerreiro;
 
 public class ReiGoblin extends Guerreiro {
@@ -15,6 +16,18 @@ public class ReiGoblin extends Guerreiro {
     @Override
     protected int getDanoBase() {
         return 100;
+    }
+
+    @Override
+    public void morrer(Lado ladoAliado) {
+        ladoAliado
+                .streamGuerreirosMortos()
+                .filter(g -> g instanceof GoblinComum)
+                .forEach(
+                        g -> ladoAliado
+                                .adicionarGuerreiro(
+                                        new GoblinComum(g.getNome() + " (ressusitado)", g.getIdade(),
+                                                g.getPeso())));
     }
 
     @Override

@@ -9,6 +9,7 @@ import java.util.Queue;
 import trabalhojogopoo.batalha.Lado;
 import trabalhojogopoo.enums.TipoLado;
 import trabalhojogopoo.model.Guerreiro;
+import trabalhojogopoo.model.GuerreiroMontador;
 import trabalhojogopoo.model.anoes.Glutao;
 import trabalhojogopoo.model.anoes.Imperador;
 import trabalhojogopoo.model.anoes.PorcoDeGuerra;
@@ -29,7 +30,8 @@ public class GeradorLados {
     public static Map<TipoLado, Lado> gerar(IImportadorGuerreiros importadorGuerreiros) throws Exception {
         Map<TipoLado, List<RecordGuerreiro>> guerreirosPorLado = importadorGuerreiros.importarGuerreiros();
 
-        Map<TipoLado, Map<Integer, Class<? extends Guerreiro>>> tipoGuerreirosPorLado = GeradorLados.getTipoGuerreirosPorLado();
+        Map<TipoLado, Map<Integer, Class<? extends Guerreiro>>> tipoGuerreirosPorLado = GeradorLados
+                .getTipoGuerreirosPorLado();
 
         Map<TipoLado, Lado> lados = new HashMap<>();
 
@@ -39,7 +41,8 @@ public class GeradorLados {
             Queue<Guerreiro> fila = new LinkedList<>();
 
             for (RecordGuerreiro recordGuerreiro : recordsGuerreiro) {
-                Class<? extends Guerreiro> classeGuerreiro = tipoGuerreirosPorLado.get(lado).get(recordGuerreiro.tipo());
+                Class<? extends Guerreiro> classeGuerreiro = tipoGuerreirosPorLado.get(lado)
+                        .get(recordGuerreiro.tipo());
                 if (classeGuerreiro == null) {
                     throw new TipoGuerreiroInvalidoException(lado, recordGuerreiro.tipo());
                 }
@@ -47,6 +50,12 @@ public class GeradorLados {
                 Guerreiro guerreiro = classeGuerreiro
                         .getDeclaredConstructor(String.class, int.class, int.class)
                         .newInstance(recordGuerreiro.nome(), recordGuerreiro.idade(), recordGuerreiro.peso());
+
+                if (recordGuerreiro.temMontaria() && guerreiro instanceof GuerreiroMontador) {
+                    GuerreiroMontador guerreiroMontador = (GuerreiroMontador) guerreiro;
+                    guerreiroMontador.criarMontaria();
+                }
+
                 fila.add(guerreiro);
             }
 

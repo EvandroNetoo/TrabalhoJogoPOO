@@ -1,6 +1,5 @@
-1 NitTe 30 70
-1 Fak 24 75
-1 Merc 55 80
-3 Full 23 77 Sim
-5 War 88 70
-4 ComeCome 200 200 Não
+1 a 1 1
+1 a 1 1
+1 a 1 1
+1 a 1 1
+1 a 1 1
