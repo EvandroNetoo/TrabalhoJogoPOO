@@ -12,26 +12,30 @@ import trabalhojogopoo.service.importadorGuerreiros.ImportadorGuerreirosArquivo;
 public class TrabalhoJogoPOO {
 
     public static void main(String[] args) throws Exception {
-
         IImportadorGuerreiros importadorGuerreiros = new ImportadorGuerreirosArquivo(System.getProperty("user.dir"));
 
         Map<TipoLado, Lado> lados = GeradorLados.gerar(importadorGuerreiros);
 
         Arena campoDeBatalha = new Arena(lados);
 
-        System.err.println("\na)");
+        System.out.println("\na)");
         campoDeBatalha.dadosGerais();
 
-        System.err.println("\nb)");
+        System.out.println("\nb)");
         campoDeBatalha.dadosPesos();
 
-        System.err.println("\nc)");
+        System.out.println("\nc)");
         campoDeBatalha.dadosMaisVelho();
 
-        System.err.println("\nd)");
         campoDeBatalha.iniciar();
+        
+        System.out.println("\nd)");
+        System.out.println("Ganhador: " + campoDeBatalha.getGanhador());
 
-        System.err.println("\ne)");
-        System.err.println("\nf)");
+        System.out.println("\ne)");
+        System.out.println("Último Atacante: " + campoDeBatalha.getUltimoAtacante());
+
+        System.out.println("\nf)");
+        System.out.println("Último Perdedor: " + campoDeBatalha.getUltimoPerdedor());
     }
 }

@@ -10,6 +10,12 @@ public class Imperador extends Glutao {
     }
 
     @Override
+    protected int getEnergiaInicial() {
+        return 250;
+    }
+
+
+    @Override
     public void atacar(Lado ladoAliado, Lado ladoAdversario, boolean atacouPrimeiro) {
         if (atacouPrimeiro) {
             setDano(DANO_QUANDO_ATACA_PRIMEIRO);
@@ -17,7 +23,10 @@ public class Imperador extends Glutao {
         super.atacar(ladoAliado, ladoAdversario, atacouPrimeiro);
 
         setDano(getDanoBase());
-        ladoAdversario.primeiro().setEstaTonto(true);
+        
+        if (atacouPrimeiro) {
+            ladoAdversario.primeiro().setEstaTonto(true);
+        }
     }
 
     @Override

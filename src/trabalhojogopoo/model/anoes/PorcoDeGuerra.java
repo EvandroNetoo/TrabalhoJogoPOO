@@ -20,9 +20,9 @@ public class PorcoDeGuerra extends Guerreiro {
     }
 
     @Override
-    public void receberAtaque(int dano, Lado ladoAliado, Lado ladoAdversario) {
-        super.receberAtaque(dano, ladoAliado, ladoAdversario);
-        ladoAdversario.primeiro().receberEfeito(new EfeitoPragaDosPorcos());
+    public void receberAtaque(Guerreiro atacante, Lado ladoAliado, Lado ladoAdversario) {
+        super.receberAtaque(atacante, ladoAliado, ladoAdversario);
+        atacante.receberEfeito(new EfeitoPragaDosPorcos());
     }
 
     @Override

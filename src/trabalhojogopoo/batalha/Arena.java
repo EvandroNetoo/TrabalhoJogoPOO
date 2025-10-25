@@ -10,6 +10,10 @@ import trabalhojogopoo.model.Guerreiro;
 
 public class Arena {
     private Map<TipoLado, Lado> lados;
+    TipoLado ganhador;
+    Lado ultimoLadoDefensor;
+    Guerreiro ultimoPerdedor;
+    Guerreiro ultimoAtacante;
 
     public Arena(Map<TipoLado, Lado> lados) {
         setLados(lados);
@@ -18,17 +22,21 @@ public class Arena {
     public List<TipoLado> gerarOrdemTipoLados() {
         List<TipoLado> ordemTiposLados = new ArrayList<>(lados.keySet());
         Collections.shuffle(ordemTiposLados);
-        return ordemTiposLados;
+        return ordemTiposLados.reversed();
     }
 
     public void iniciar() {
+
+        int iRound = 0;
+        System.err.println("ROUND " + ++iRound);
         dadosGerais();
         System.out.println("---------------------------------------------------");
-        while (lados.values().stream().filter(lado -> lado.qtdVivos() > 0).count() > 1) {
+
+        while (getLados().values().stream().filter(lado -> lado.qtdVivos() > 0).count() > 1) {
             List<TipoLado> ordemAtaque = gerarOrdemTipoLados(), ordemDefesa = gerarOrdemTipoLados();
 
             for (TipoLado tipoLadoAtacante : ordemAtaque) {
-                Lado ladoAtacante = lados.get(tipoLadoAtacante);
+                Lado ladoAtacante = getLados().get(tipoLadoAtacante);
                 if (ladoAtacante.qtdVivos() == 0) {
                     continue;
                 }
@@ -36,7 +44,7 @@ public class Arena {
                 for (TipoLado tipoLadoDefensor : ordemDefesa.stream()
                         .filter(tipoLado -> tipoLado != tipoLadoAtacante)
                         .toList()) {
-                    Lado ladoDefensor = lados.get(tipoLadoDefensor);
+                    Lado ladoDefensor = getLados().get(tipoLadoDefensor);
 
                     Guerreiro guerreiroAtacante = ladoAtacante.primeiro();
 
@@ -45,6 +53,8 @@ public class Arena {
                                 ladoAtacante,
                                 ladoDefensor,
                                 tipoLadoAtacante == ordemAtaque.getFirst());
+                        setUltimoAtacante(guerreiroAtacante);
+                        setUltimoLadoDefensor(ladoDefensor);
                     }
 
                 }
@@ -53,18 +63,27 @@ public class Arena {
 
             aplicarRotinasAposRodada();
 
+            System.out.println("ROUND " + ++iRound);
             dadosGerais();
             System.out.println("---------------------------------------------------");
         }
+
+        TipoLado ganhador = getLados().entrySet().stream()
+                .filter(entry -> entry.getValue().qtdVivos() > 0)
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElse(null);
+        setGanhador(ganhador);
     }
 
     private void aplicarRotinasAposRodada() {
-        lados.values().forEach(lado -> {
+        getLados().values().forEach(lado -> {
             lado.andarFila();
             lado.aplicarEfeitos();
             lado.removerTontura();
             lado.removerMortos();
         });
+        setUltimoPerdedor(getUltimoLadoDefensor().streamGuerreirosMortos().reduce((_, b) -> b).orElse(null));
     }
 
     public void dadosGerais() {
@@ -92,8 +111,43 @@ public class Arena {
                 .println("O " + maisVelho.getNomeVerboso() + " " + maisVelho.getNome() + " é o guerreiro mais velho.");
     }
 
+    private Map<TipoLado, Lado> getLados() {
+        return lados;
+    }
+
     private void setLados(Map<TipoLado, Lado> lados) {
         this.lados = lados;
     }
 
+    public TipoLado getGanhador() {
+        return ganhador;
+    }
+
+    private void setGanhador(TipoLado ganhador) {
+        this.ganhador = ganhador;
+    }
+
+    public Guerreiro getUltimoAtacante() {
+        return ultimoAtacante;
+    }
+
+    private void setUltimoAtacante(Guerreiro ultimoAtacante) {
+        this.ultimoAtacante = ultimoAtacante;
+    }
+
+    private Lado getUltimoLadoDefensor() {
+        return ultimoLadoDefensor;
+    }
+
+    private void setUltimoLadoDefensor(Lado ultimoLadoDefensor) {
+        this.ultimoLadoDefensor = ultimoLadoDefensor;
+    }
+
+    public Guerreiro getUltimoPerdedor() {
+        return ultimoPerdedor;
+    }
+
+    private void setUltimoPerdedor(Guerreiro ultimoPerdedor) {
+        this.ultimoPerdedor = ultimoPerdedor;
+    }
 }

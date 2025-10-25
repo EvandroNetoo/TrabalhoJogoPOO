@@ -10,4 +10,6 @@ public interface IEfeito {
     };
 
     public TipoEfeito tipo();
+
+    public String toString();
 }

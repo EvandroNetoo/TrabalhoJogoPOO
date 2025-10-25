@@ -13,15 +13,15 @@ public abstract class GuerreiroMontadorDeCavalo extends GuerreiroMontador {
     }
 
     @Override
-    public void receberAtaque(int dano, Lado ladoAliado, Lado ladoAdversario) {
+    public void receberAtaque(Guerreiro atacante, Lado ladoAliado, Lado ladoAdversario) {
         if (temMontaria()) {
-            getMontaria().receberAtaque(dano, ladoAliado, ladoAdversario);
+            getMontaria().receberAtaque(atacante, ladoAliado, ladoAdversario);
             if (!getMontaria().estaVivo()) {
                 setMontaria(null);
             }
             return;
         }
-        super.receberAtaque(dano, ladoAliado, ladoAdversario);
+        super.receberAtaque(atacante, ladoAliado, ladoAdversario);
     }
 
 }

@@ -1,1 +1,6 @@
-5 a 1 1 Sim
+1 Guardiao1 60 50 Sim
+1 Guardiao2 40 30 Não
+2 Arqueiro1 60 50 Sim
+5 PorcoGuerra1 88 70
+4 Grutao1 88 70 Sim
+6 Imperador1 88 70 Sim

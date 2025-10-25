@@ -1,5 +1,6 @@
 package trabalhojogopoo.model.orcs;
 
+import trabalhojogopoo.batalha.Lado;
 import trabalhojogopoo.model.Guerreiro;
 
 public class SenhorDasFeras extends Guerreiro {
@@ -15,6 +16,14 @@ public class SenhorDasFeras extends Guerreiro {
     @Override
     protected int getDanoBase() {
         return 50;
+    }
+
+    @Override
+    public void atacar(Lado ladoAliado, Lado ladoAdversario, boolean atacouPrimeiro) {
+        super.atacar(ladoAliado, ladoAdversario, atacouPrimeiro);
+        if (!ladoAdversario.primeiro().estaVivo()) {
+            ladoAliado.adicionarGuerreiro(new Warg(getNome() + " (gerado)", getIdade(), getPeso()));
+        }
     }
 
     @Override

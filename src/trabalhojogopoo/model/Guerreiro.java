@@ -42,16 +42,17 @@ public abstract class Guerreiro {
     public void atacar(Lado ladoAliado, Lado ladoAdversario, boolean atacouPrimeiro) {
         Guerreiro defensor = ladoAdversario.primeiro();
         if (defensor != null) {
-            defensor.receberAtaque(getDano(), ladoAdversario, ladoAliado);
+            aplicarTipoEfeito(TipoEfeito.PRE_ATAQUE, ladoAliado);
+            defensor.receberAtaque(this, ladoAdversario, ladoAliado);
             aplicarTipoEfeito(TipoEfeito.POS_ATAQUE, ladoAliado);
         }
     }
 
-    public void receberAtaque(int dano, Lado ladoAliado, Lado ladoAdversario) {
+    public void receberAtaque(Guerreiro atacante, Lado ladoAliado, Lado ladoAdversario) {
         if (!estaVivo()) {
             return;
         }
-        receberDano(dano, ladoAliado);
+        receberDano(atacante.getDano(), ladoAliado);
     }
 
     public void receberDano(int dano, Lado ladoAliado) {
@@ -146,6 +147,6 @@ public abstract class Guerreiro {
 
     @Override
     public String toString() {
-        return getNomeVerboso() + ": " + nome + ", " + idade + " anos, " + peso + " Kilos, " + energia;
+        return String.format("%s: %s, %d anos, %d Kilos, %d energia, efeitos: %s", getNomeVerboso(), nome, idade, peso, energia, getEfeitos());
     }
 }

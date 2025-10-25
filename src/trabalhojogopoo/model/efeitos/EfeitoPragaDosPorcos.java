@@ -14,7 +14,7 @@ public class EfeitoPragaDosPorcos implements IEfeito {
 
     @Override
     public TipoEfeito tipo() {
-        return TipoEfeito.POS_ATAQUE;
+        return TipoEfeito.PRE_ATAQUE;
     }
 
     @Override
@@ -33,5 +33,10 @@ public class EfeitoPragaDosPorcos implements IEfeito {
 
     public void setQtdAmplificada(int qtdAmplificada) {
         this.qtdAmplificada = qtdAmplificada;
+    }
+
+    @Override
+    public String toString() {
+        return "Praga dos Porcos (dano: " + (getQtdAmplificada() * DANO_BASE) + ")";
     }
 }

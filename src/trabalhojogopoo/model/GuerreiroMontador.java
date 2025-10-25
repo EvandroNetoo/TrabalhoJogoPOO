@@ -20,4 +20,9 @@ public abstract class GuerreiroMontador extends Guerreiro {
     protected void setMontaria(Guerreiro montaria) {
         this.montaria = montaria;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "  || montaria: " + (temMontaria() ? getMontaria() : " sem montaria");
+    }
 }

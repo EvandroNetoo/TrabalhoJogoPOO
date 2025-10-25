@@ -17,7 +17,7 @@ public class Arqueiro extends GuerreiroMontadorDeCavalo {
     @Override
     public void atacar(Lado ladoAliado, Lado ladoAdversario, boolean atacouPrimeiro) {
         for (Guerreiro guerreiroAlvo : ladoAdversario.streamGuerreiros().toList()) {
-            guerreiroAlvo.receberAtaque(getDano(), ladoAdversario, ladoAliado);
+            guerreiroAlvo.receberAtaque(this, ladoAdversario, ladoAliado);
         }
     }
 
