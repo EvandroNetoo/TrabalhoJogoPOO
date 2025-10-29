@@ -22,6 +22,7 @@ import trabalhojogopoo.model.orcs.Acougueiro;
 import trabalhojogopoo.model.orcs.SenhorDasFeras;
 import trabalhojogopoo.model.orcs.Soldado;
 import trabalhojogopoo.model.orcs.Warg;
+import trabalhojogopoo.service.exceptions.QtdMaxGuerreiroExcedidaException;
 import trabalhojogopoo.service.exceptions.TipoGuerreiroInvalidoException;
 import trabalhojogopoo.service.importadorGuerreiros.IImportadorGuerreiros;
 import trabalhojogopoo.service.importadorGuerreiros.RecordGuerreiro;
@@ -34,6 +35,7 @@ public class GeradorLados {
                 .getTipoGuerreirosPorLado();
 
         Map<TipoLado, Lado> lados = new HashMap<>();
+        Map<Class<? extends Guerreiro>, Integer> contadorInstancias = new HashMap<>();
 
         for (Map.Entry<TipoLado, List<RecordGuerreiro>> entry : guerreirosPorLado.entrySet()) {
             TipoLado lado = entry.getKey();
@@ -46,6 +48,17 @@ public class GeradorLados {
                 if (classeGuerreiro == null) {
                     throw new TipoGuerreiroInvalidoException(lado, recordGuerreiro.tipo());
                 }
+
+                contadorInstancias.putIfAbsent(classeGuerreiro, 0);
+
+                int qtdInstancias = contadorInstancias.get(classeGuerreiro) + 1;
+                if (qtdInstancias > classeGuerreiro
+                        .getField("QTD_MAX_INSTANCIAS")
+                        .getInt(null)) {
+                    throw new QtdMaxGuerreiroExcedidaException(classeGuerreiro);
+                }
+
+                contadorInstancias.put(classeGuerreiro, qtdInstancias);
 
                 Guerreiro guerreiro = classeGuerreiro
                         .getDeclaredConstructor(String.class, int.class, int.class)

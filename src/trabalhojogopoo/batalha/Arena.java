@@ -22,7 +22,7 @@ public class Arena {
     public List<TipoLado> gerarOrdemTipoLados() {
         List<TipoLado> ordemTiposLados = new ArrayList<>(lados.keySet());
         Collections.shuffle(ordemTiposLados);
-        return ordemTiposLados.reversed();
+        return ordemTiposLados;
     }
 
     public void iniciar() {

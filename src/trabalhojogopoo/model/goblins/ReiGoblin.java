@@ -4,6 +4,7 @@ import trabalhojogopoo.batalha.Lado;
 import trabalhojogopoo.model.Guerreiro;
 
 public class ReiGoblin extends Guerreiro {
+    public static final int QTD_MAX_INSTANCIAS = 1;
     public ReiGoblin(String nome, int idade, int peso) {
         super(nome, idade, peso);
     }

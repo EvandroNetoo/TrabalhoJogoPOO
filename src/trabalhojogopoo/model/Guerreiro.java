@@ -8,6 +8,7 @@ import trabalhojogopoo.model.efeitos.IEfeito;
 import trabalhojogopoo.model.efeitos.TipoEfeito;
 
 public abstract class Guerreiro {
+    public static final int QTD_MAX_INSTANCIAS = Integer.MAX_VALUE;
     private String nome;
     private int idade;
     private int peso;
