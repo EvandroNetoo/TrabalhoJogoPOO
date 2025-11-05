@@ -83,7 +83,7 @@ public class Arena {
             lado.removerTontura();
             lado.removerMortos();
         });
-        setUltimoPerdedor(getUltimoLadoDefensor().streamGuerreirosMortos().reduce((_, b) -> b).orElse(null));
+        setUltimoPerdedor(getUltimoLadoDefensor().streamGuerreirosMortos().reduce((a, b) -> b).orElse(null));
     }
 
     public void dadosGerais() {
