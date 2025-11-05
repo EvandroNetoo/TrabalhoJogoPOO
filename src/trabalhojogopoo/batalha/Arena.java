@@ -52,7 +52,7 @@ public class Arena {
                         guerreiroAtacante.atacar(
                                 ladoAtacante,
                                 ladoDefensor,
-                                tipoLadoAtacante == ordemAtaque.getFirst());
+                                tipoLadoAtacante == ordemAtaque.get(0));
                         setUltimoAtacante(guerreiroAtacante);
                         setUltimoLadoDefensor(ladoDefensor);
                     }
