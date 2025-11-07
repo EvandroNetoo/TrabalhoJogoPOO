@@ -1,7 +1,6 @@
 package trabalhojogopoo.batalha;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +10,6 @@ import trabalhojogopoo.model.Guerreiro;
 public class Arena {
     private Map<TipoLado, Lado> lados;
     TipoLado ganhador;
-    Lado ultimoLadoDefensor;
-    Guerreiro ultimoPerdedor;
-    Guerreiro ultimoAtacante;
 
     public Arena(Map<TipoLado, Lado> lados) {
         setLados(lados);
@@ -21,7 +17,7 @@ public class Arena {
 
     public List<TipoLado> gerarOrdemTipoLados() {
         List<TipoLado> ordemTiposLados = new ArrayList<>(lados.keySet());
-        Collections.shuffle(ordemTiposLados);
+        // Collections.shuffle(ordemTiposLados);
         return ordemTiposLados;
     }
 
@@ -53,8 +49,6 @@ public class Arena {
                                 ladoAtacante,
                                 ladoDefensor,
                                 tipoLadoAtacante == ordemAtaque.get(0));
-                        setUltimoAtacante(guerreiroAtacante);
-                        setUltimoLadoDefensor(ladoDefensor);
                     }
 
                 }
@@ -83,7 +77,6 @@ public class Arena {
             lado.removerTontura();
             lado.removerMortos();
         });
-        setUltimoPerdedor(getUltimoLadoDefensor().streamGuerreirosMortos().reduce((a, b) -> b).orElse(null));
     }
 
     public void dadosGerais() {
@@ -128,26 +121,10 @@ public class Arena {
     }
 
     public Guerreiro getUltimoAtacante() {
-        return ultimoAtacante;
-    }
-
-    private void setUltimoAtacante(Guerreiro ultimoAtacante) {
-        this.ultimoAtacante = ultimoAtacante;
-    }
-
-    private Lado getUltimoLadoDefensor() {
-        return ultimoLadoDefensor;
-    }
-
-    private void setUltimoLadoDefensor(Lado ultimoLadoDefensor) {
-        this.ultimoLadoDefensor = ultimoLadoDefensor;
+        return lados.get(ganhador).streamGuerreiros().findFirst().orElse(null);
     }
 
     public Guerreiro getUltimoPerdedor() {
-        return ultimoPerdedor;
-    }
-
-    private void setUltimoPerdedor(Guerreiro ultimoPerdedor) {
-        this.ultimoPerdedor = ultimoPerdedor;
+        return lados.get(ganhador == TipoLado.ELFOS_E_ANOES ? TipoLado.ORCS_E_GOBLINS : TipoLado.ELFOS_E_ANOES).streamGuerreirosMortos().findFirst().orElse(null);
     }
 }
