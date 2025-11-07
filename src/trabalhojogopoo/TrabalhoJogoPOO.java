@@ -1,20 +1,34 @@
 package trabalhojogopoo;
 
+import java.io.FileNotFoundException;
 import java.util.Map;
 
 import trabalhojogopoo.batalha.Arena;
 import trabalhojogopoo.batalha.Lado;
 import trabalhojogopoo.enums.TipoLado;
 import trabalhojogopoo.service.GeradorLados;
+import trabalhojogopoo.service.exceptions.ArquivoInvalidoException;
 import trabalhojogopoo.service.importadorGuerreiros.IImportadorGuerreiros;
 import trabalhojogopoo.service.importadorGuerreiros.ImportadorGuerreirosArquivo;
 
 public class TrabalhoJogoPOO {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         IImportadorGuerreiros importadorGuerreiros = new ImportadorGuerreirosArquivo(System.getProperty("user.dir"));
 
-        Map<TipoLado, Lado> lados = GeradorLados.gerar(importadorGuerreiros);
+        Map<TipoLado, Lado> lados = null;
+        try {
+            lados = GeradorLados.gerar(importadorGuerreiros);
+        } catch (FileNotFoundException e) {
+            System.err.println("Arquivo de guerreiros não encontrado: " + e.getMessage());
+            return;
+        } catch (ArquivoInvalidoException e) {
+            System.err.println("Arquivo inválido: " + e.getMessage());
+            return;
+        } catch (Exception e) {
+            System.err.println("Erro interno do sistema: " + e.getMessage());
+            return;
+        }
 
         Arena campoDeBatalha = new Arena(lados);
 
@@ -28,7 +42,7 @@ public class TrabalhoJogoPOO {
         campoDeBatalha.dadosMaisVelho();
 
         campoDeBatalha.iniciar();
-        
+
         System.out.println("\nd)");
         System.out.println("Ganhador: " + campoDeBatalha.getGanhador());
 

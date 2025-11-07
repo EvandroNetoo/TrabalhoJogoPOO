@@ -1,5 +1,6 @@
 package trabalhojogopoo.service;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +29,8 @@ import trabalhojogopoo.service.importadorGuerreiros.IImportadorGuerreiros;
 import trabalhojogopoo.service.importadorGuerreiros.RecordGuerreiro;
 
 public class GeradorLados {
-    public static Map<TipoLado, Lado> gerar(IImportadorGuerreiros importadorGuerreiros) throws Exception {
+    public static Map<TipoLado, Lado> gerar(IImportadorGuerreiros importadorGuerreiros)
+            throws FileNotFoundException, QtdMaxGuerreiroExcedidaException, TipoGuerreiroInvalidoException, Exception {
         Map<TipoLado, List<RecordGuerreiro>> guerreirosPorLado = importadorGuerreiros.importarGuerreiros();
 
         Map<TipoLado, Map<Integer, Class<? extends Guerreiro>>> tipoGuerreirosPorLado = GeradorLados
