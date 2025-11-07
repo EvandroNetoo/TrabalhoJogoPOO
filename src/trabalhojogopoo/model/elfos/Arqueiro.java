@@ -2,7 +2,7 @@ package trabalhojogopoo.model.elfos;
 
 import trabalhojogopoo.batalha.Lado;
 import trabalhojogopoo.model.Guerreiro;
-import trabalhojogopoo.model.GuerreiroMontadorDeCavalo;
+import trabalhojogopoo.model.cavalo.GuerreiroMontadorDeCavalo;
 
 public class Arqueiro extends GuerreiroMontadorDeCavalo {
     public Arqueiro(String nome, int idade, int peso) {

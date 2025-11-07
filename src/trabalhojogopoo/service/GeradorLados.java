@@ -56,7 +56,7 @@ public class GeradorLados {
                 int qtdInstancias = contadorInstancias.get(classeGuerreiro) + 1;
                 if (qtdInstancias > classeGuerreiro
                         .getField("QTD_MAX_INSTANCIAS")
-                        .getInt(null)) {
+                        .getInt(Integer.MAX_VALUE)) {
                     throw new QtdMaxGuerreiroExcedidaException(classeGuerreiro);
                 }
 

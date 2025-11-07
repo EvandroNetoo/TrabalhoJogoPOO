@@ -1,4 +1,6 @@
-package trabalhojogopoo.model;
+package trabalhojogopoo.model.cavalo;
+
+import trabalhojogopoo.model.Guerreiro;
 
 public class Cavalo extends Guerreiro {
     public Cavalo(String nome, int idade, int peso) {

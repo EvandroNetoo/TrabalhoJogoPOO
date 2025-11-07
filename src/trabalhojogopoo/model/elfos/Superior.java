@@ -1,6 +1,6 @@
 package trabalhojogopoo.model.elfos;
 
-import trabalhojogopoo.model.GuerreiroMontadorDeCavalo;
+import trabalhojogopoo.model.cavalo.GuerreiroMontadorDeCavalo;
 
 public class Superior extends GuerreiroMontadorDeCavalo {
     public Superior(String nome, int idade, int peso) {

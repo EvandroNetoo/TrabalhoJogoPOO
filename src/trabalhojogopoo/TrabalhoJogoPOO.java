@@ -16,9 +16,31 @@ public class TrabalhoJogoPOO {
     public static void main(String[] args) {
         IImportadorGuerreiros importadorGuerreiros = new ImportadorGuerreirosArquivo(System.getProperty("user.dir"));
 
-        Map<TipoLado, Lado> lados = null;
         try {
-            lados = GeradorLados.gerar(importadorGuerreiros);
+            Map<TipoLado, Lado> lados = GeradorLados.gerar(importadorGuerreiros);
+
+            Arena campoDeBatalha = new Arena(lados);
+
+            System.out.println("\na)");
+            campoDeBatalha.dadosGerais();
+
+            System.out.println("\nb)");
+            campoDeBatalha.dadosPesos();
+
+            System.out.println("\nc)");
+            campoDeBatalha.dadosMaisVelho();
+
+            campoDeBatalha.iniciar();
+
+            System.out.println("\nd)");
+            System.out.println("Ganhador: " + campoDeBatalha.getGanhador());
+
+            System.out.println("\ne)");
+            System.out.println("Último Atacante: " + campoDeBatalha.getUltimoAtacante());
+
+            System.out.println("\nf)");
+            System.out.println("Último Perdedor: " + campoDeBatalha.getUltimoPerdedor());
+
         } catch (FileNotFoundException e) {
             System.err.println("Arquivo de guerreiros não encontrado: " + e.getMessage());
             return;
@@ -30,26 +52,5 @@ public class TrabalhoJogoPOO {
             return;
         }
 
-        Arena campoDeBatalha = new Arena(lados);
-
-        System.out.println("\na)");
-        campoDeBatalha.dadosGerais();
-
-        System.out.println("\nb)");
-        campoDeBatalha.dadosPesos();
-
-        System.out.println("\nc)");
-        campoDeBatalha.dadosMaisVelho();
-
-        campoDeBatalha.iniciar();
-
-        System.out.println("\nd)");
-        System.out.println("Ganhador: " + campoDeBatalha.getGanhador());
-
-        System.out.println("\ne)");
-        System.out.println("Último Atacante: " + campoDeBatalha.getUltimoAtacante());
-
-        System.out.println("\nf)");
-        System.out.println("Último Perdedor: " + campoDeBatalha.getUltimoPerdedor());
     }
 }

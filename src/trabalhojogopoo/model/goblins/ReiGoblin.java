@@ -21,14 +21,14 @@ public class ReiGoblin extends Guerreiro {
 
     @Override
     public void morrer(Lado ladoAliado) {
+        super.morrer(ladoAliado);
         ladoAliado
                 .streamGuerreirosMortos()
                 .filter(g -> g instanceof GoblinComum)
                 .forEach(
                         g -> ladoAliado
                                 .adicionarGuerreiro(
-                                        new GoblinComum(g.getNome() + " (ressusitado)", g.getIdade(),
-                                                g.getPeso())));
+                                        new GoblinComum(g.getNome() + " (ressusitado)", g.getIdade(), g.getPeso())));
     }
 
     @Override

@@ -1,6 +1,8 @@
-package trabalhojogopoo.model;
+package trabalhojogopoo.model.cavalo;
 
 import trabalhojogopoo.batalha.Lado;
+import trabalhojogopoo.model.Guerreiro;
+import trabalhojogopoo.model.GuerreiroMontador;
 
 public abstract class GuerreiroMontadorDeCavalo extends GuerreiroMontador {
     public GuerreiroMontadorDeCavalo(String nome, int idade, int peso) {
