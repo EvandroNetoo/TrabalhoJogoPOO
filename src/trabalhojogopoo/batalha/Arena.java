@@ -1,6 +1,7 @@
 package trabalhojogopoo.batalha;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class Arena {
 
     public List<TipoLado> gerarOrdemTipoLados() {
         List<TipoLado> ordemTiposLados = new ArrayList<>(lados.keySet());
-        // Collections.shuffle(ordemTiposLados);
+        Collections.shuffle(ordemTiposLados);
         return ordemTiposLados;
     }
 
