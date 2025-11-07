@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/java
-# Edit at https://www.toptal.com/developers/gitignore?templates=java
+# Created by https://www.toptal.com/developers/gitignore/api/java,netbeans,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=java,netbeans,visualstudiocode
 
 ### Java ###
 # Compiled class file
@@ -27,6 +27,33 @@
 hs_err_pid*
 replay_pid*
 
-# End of https://www.toptal.com/developers/gitignore/api/java
+### NetBeans ###
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
 
-# Generated using ignr.py - github.com/Antrikshy/ignr.py
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+# End of https://www.toptal.com/developers/gitignore/api/java,netbeans,visualstudiocode
