@@ -23,12 +23,6 @@ public class Arena {
     }
 
     public void iniciar() {
-
-        int iRound = 0;
-        System.err.println("ROUND " + ++iRound);
-        dadosGerais();
-        System.out.println("---------------------------------------------------");
-
         while (getLados().values().stream().filter(lado -> lado.qtdVivos() > 0).count() > 1) {
             List<TipoLado> ordemAtaque = gerarOrdemTipoLados(), ordemDefesa = gerarOrdemTipoLados();
 
@@ -57,10 +51,6 @@ public class Arena {
             }
 
             aplicarRotinasAposRodada();
-
-            System.out.println("ROUND " + ++iRound);
-            dadosGerais();
-            System.out.println("---------------------------------------------------");
         }
 
         TipoLado ganhador = getLados().entrySet().stream()
