@@ -48,7 +48,7 @@ public class TrabalhoJogoPOO {
             System.err.println("Arquivo inválido: " + e.getMessage());
             return;
         } catch (Exception e) {
-            System.err.println("Erro interno do sistema: " + e.getMessage());
+            System.err.println("Erro interno do sistema: " + e);
             return;
         }
 
